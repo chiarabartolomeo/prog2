@@ -1,10 +1,12 @@
 from flask import Flask
+from flask import render_template
+from flask import request
 
 app = Flask("Hello World")
 
-@app.route("/hello")
+@app.route('/hello')
 def hello_world():
-	return "Hello, Chiara!"
+    return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
 
 
 if __name__ == "__main__":

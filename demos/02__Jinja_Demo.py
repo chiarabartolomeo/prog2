@@ -4,11 +4,11 @@ from flask import request
 
 app = Flask("Hello World")
 
-@app.route('/hello')
+@app.route('/hello1')
 def hello_world():
- return render_template('index.html', name="Chiara")
+    return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
 
-@app.route("/hello3/", methods=['GET', 'POST'])
+@app.route("/hello5/", methods=['GET', 'POST'])
 def hallo():
     if request.method == 'POST':
         ziel_person = request.form['vorname']
@@ -20,4 +20,4 @@ def hallo():
 
 
 if __name__ == "__main__":
- app.run(debug=True, port=5000)
+ app.run(debug=True, port=6000)
