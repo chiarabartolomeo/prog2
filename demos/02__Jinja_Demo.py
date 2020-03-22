@@ -4,7 +4,7 @@ from flask import request
 
 app = Flask("Hello World")
 
-@app.route('/hello1')
+@app.route('/ciao')
 def hello_world():
     return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
 
@@ -20,4 +20,4 @@ def hallo():
 
 
 if __name__ == "__main__":
- app.run(debug=True, port=6000)
+ app.run(debug=True, port=6001)
