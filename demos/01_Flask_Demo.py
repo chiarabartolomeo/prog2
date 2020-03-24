@@ -6,7 +6,7 @@ app = Flask("Hello World")
 
 @app.route('/hello')
 def hello_world():
-    return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
+    return render_template('angebot.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
 
 
 if __name__ == "__main__":
