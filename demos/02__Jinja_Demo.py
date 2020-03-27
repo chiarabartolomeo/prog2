@@ -1,22 +1,28 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import url_for
+from flask import redirect
 
 app = Flask("Hello World")
 
+@app.route('/')
 @app.route('/home')
 def hello_world():
     return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
 
 @app.route("/anmelden/", methods=['GET', 'POST'])
-def hallo():
+def anmelden():
     if request.method == 'POST':
         ziel_person = request.form['vorname']
-        rueckgabe_string = "Hallo " + ziel_person + ", bitte wählen Sie ein Angebot:"
-        return rueckgabe_string
+        return redirect(url_for("angebote", name=ziel_person))
 
 
     return render_template("anmelden.html")
+
+@app.route("/angebote/<name>", methods=['GET'])
+def angebote(name):
+	return render_template("angebot.html", name=name)
 
 
 if __name__ == "__main__":
