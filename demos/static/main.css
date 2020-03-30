@@ -1,19 +1,30 @@
 h1 {
- 	color: pink;
+ 	color: #555;
 }
 
 
 .header {
-  padding: 10px 16px;
+  padding: 16px 16px;
   background: #555;
   color: #f1f1f1;
+  padding-bottom: 0%;
+  height: 96px;
 }
 
 .typ {
 float: left;
 margin-right: 10px;
 }
+
+
+.anmelden {
+  text-align: center;
+  padding-top: auto;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 
 
@@ -44,6 +55,8 @@ margin-right: 10px;
   background: #555;
   color: white;
   text-align: center;
+  padding-top: 10pt;
+  padding-bottom: 10pt;
 }
 
 .container {
@@ -56,4 +69,9 @@ margin-right: 10px;
 
 .card-deck .card {
   min-width: 220px;
+}
+
+.abovefooter {
+  height: 150px;
+text-align: center;
 }

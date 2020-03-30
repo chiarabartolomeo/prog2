@@ -8,8 +8,8 @@ app = Flask("Hello World")
 
 @app.route('/')
 @app.route('/home')
-def hello_world():
-    return render_template('index.html', name="Samir Koce", geschlecht="männlich", geburtsdatum="15.15.2097")
+def home():
+    return render_template("index.html")
 
 @app.route("/anmelden/", methods=['GET', 'POST'])
 def anmelden():
