@@ -11,8 +11,8 @@ app.permanent_session_lifetime = timedelta(minutes=2)
 def home():
 	if request.method == "POST":
 		session.permanent = True
-		service = request.form[field1]
-		session["service"] = [service]
+		service = request.form["field1"]
+		session["service"] = service
 		name = request.form["field2"]
 		session["name"] = name
 		phone = request.form["field3"]
@@ -23,9 +23,14 @@ def home():
 		session["date"] = date
 		time = request.form["field6"]
 		session["time"] = time
-		return redirect(url_for("home"))
+		return redirect(url_for("thanks"))
 	else: 
 		return render_template("home.html") 
+
+
+@app.route('/thanks')
+def thanks():
+        return render_template("thanks.html")
 
 
 
