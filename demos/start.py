@@ -30,7 +30,9 @@ def home():
 
 @app.route('/thanks')
 def thanks():
-        return render_template("thanks.html")
+    date = session["date"]
+    time = session["time"]
+    return render_template("thanks.html", field5 = date, field6 = time)
 
 
 
