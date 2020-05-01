@@ -4,6 +4,7 @@ from datetime import timedelta
 #Das Wissen haben wir vom Youtube Kanal 'Tech With Tim', unter anderem: https://www.youtube.com/watch?v=mqhxxeeTbu0 
 
 app = Flask (__name__)
+app.secret_key = "abc"
 app.permanent_session_lifetime = timedelta(minutes=2) #Eingegebene Werte in Session werden 2 Min. lang gespeichert
 
 
