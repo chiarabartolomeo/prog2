@@ -38,6 +38,26 @@ def thanks():			#Bildung der Funktion 'Thanks'
     return render_template("thanks.html", field5 = date, field6 = time) #Der HTML Code wird hier mit den eingegebenen Daten visuel dargestellt.
 
 
+@app.route('/admin')
+
+def admin():
+    if "service" in session:
+        service = session["service"]
+        if service == "1":
+            service = "Haare"
+        elif service == "2":
+            service = "Bart"
+        elif service == "3":
+            service = "Haare & Bart"
+
+        name = session["name"]
+        phone = session["phone"]
+        message = session["message"]
+        date = session["date"]
+        time = session["time"]
+        return render_template("view.html", field1 = service, field2 = name, field3 = phone, field4 = message, field5 = date, field6 = time)
+    else:
+        return render_template("index.html")
 
 if __name__ == "__main__":
  app.run(debug=True)		
