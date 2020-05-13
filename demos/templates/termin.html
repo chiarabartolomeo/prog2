@@ -1,0 +1,74 @@
+{% include "head.html" %}
+           
+        
+
+		
+		<section class="border-bottom" style="padding-top: 100px; padding-bottom: 50px">	<!--CSS-->
+            <div class="container">
+                
+                
+                
+                <div class="text-center" style="padding-top: 60px; padding-bottom: 60px">	<!--CSS-->
+                    
+                    <h2>Jetzt Termin vereinbaren</h2> <!--Titel für Input-Formular-->
+                </div>
+                <form method="POST" action="#"> <!--Eingaben werden auf Server geladen mit Post-->
+
+                    <h3>Termin wählen</h3>
+
+                    
+
+
+                    <h5>Öffnungszeiten:</h5>
+                    <p>Mo-Sa von 09:00-19:00 Uhr</p>
+                    <p></p>
+                    <h5>Reservierungszeiten:</h5>
+                    <p>Mo-Sa von 09:00 bis 18:30 Uhr im Halbstundentakt</p>
+                    
+                    
+
+                        <div class="form-group">
+                                <label for="email"> Ihr Wunschtermin eingeben:</label>
+                                    <input type="datetime-local" class="form-control" name="field5"
+                                    min="09:00" max="19:00">
+
+                        </div>
+
+
+
+                            <div class="col-md-6 offset-md-3 offset-lg-3 offset-xl-3 button">
+                                <button class="btn btn-primary btn-block" type="submit" name="submit" style="margin-top: 20px;">Senden	<!--Senden-Button-->
+                                </button>
+                            </div>
+                            
+                    </div>
+                    <br>
+
+                    <div class="container">
+                      
+                      <button type="button" class="btn btn-secondary btn-sm btn-block" data-toggle="collapse" data-target="#demo">Hier bereits vergebene Termine einsehen!</button>
+                      <div id="demo" class="collapse">
+                        <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col" style="text-align: center;">Vergebene Termine:</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for termin in reservierungen %}
+                                            <tr>
+                                              <td style="text-align: center;">{{termin}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                      </div>
+                    </div>
+                    
+                       
+            </form>
+                
+        </div>
+    </section>
+
+{% include "footer.html" %}

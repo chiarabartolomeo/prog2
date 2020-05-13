@@ -1,0 +1,16 @@
+{% include "head.html" %}
+
+	<section class="border-bottom"  style="padding-top: 100px">	<!--CSS-->
+		<div class="container">
+			<div class="form-group">
+				<div class="vergangen">
+				  <h5>Ungültiges Datum!</h5>
+				  {{kosten}}
+				  <p>Das von Ihnen gewählte Wunschdatum {{Reservierung}} liegt in der Vergangenheit!</p>
+				  <a href="{{ url_for('termin') }}"><button type="button" class="btn btn-primary">Neuer Versuch</button></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% include "footer.html" %}

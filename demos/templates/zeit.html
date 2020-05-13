@@ -1,0 +1,16 @@
+{% include "head.html" %}
+
+	<section class="border-bottom"  style="padding-top: 100px">	<!--CSS-->
+		<div class="container">
+			<div class="form-group">
+				<div class="zeit">
+				  <h5>Ungültige Zeit!</h5>
+				  <p>Die von Ihnen gewählte Zeit {{zeit}} entspricht nicht der Reservierungsdaten!</p>
+				  <p>Reservierungszeiten sind wie folgt im Halbstundentakt möglich: 09:00 - 18:30 </p>
+				  <a href="{{ url_for('termin') }}"><button type="button" class="btn btn-primary">Neuer Versuch</button></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% include "footer.html" %}

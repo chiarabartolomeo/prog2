@@ -1,0 +1,61 @@
+{% include "head.html" %}
+    
+    
+    
+
+        
+        
+        <section style="padding-top: 150px; padding-bottom: 100px"> <!--Darstellung der Rückmeldung an Kunde (Einrückung/Abstände)-->
+            <div class="container">
+                <div class="text-center">   <!-- Text einmitten -->
+                	<h1>Vielen Dank {{name}}!</h1>
+                    <h1>Deine Terminanmeldung war erfolgreich. Danke und bis am <strong>{{Datum}}</strong> um <strong>{{Zeit}}Uhr! </strong></h1>    <!--Die geschwungenen Klammern dienen Flask dazu, die definierten Variabeln in start.py zu erkennen-->
+                    <br>
+                    <div class="container" style="width: 40%">
+	                    <table class="table table-hover">
+						  <thead>
+						    <tr>
+						      <td colspan="2"><h3><strong>Terminbestätigung</strong></h3></td>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">Name:</th>
+						      <td>{{name}}</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Tel-Nr.:</th>
+						      <td>{{phone}}</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Alter:</th>
+						      <td>{{alter}}</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Service:</th>
+						      <td>{{service}} schneiden</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Datum:</th>
+						      <td>{{Datum}} </td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Zeit:</th>
+						      <td>{{Zeit}} </td>
+						    </tr>
+						    <tr>
+						      <th scope="row">Preis:</th>
+						      <td>CHF {{kosten}}.- </td>
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+					<br>	
+
+                    
+                    <h4>Dein Online Barber</h4>
+                </div>
+            </div>
+        </section>
+        
+{% include "footer.html" %}

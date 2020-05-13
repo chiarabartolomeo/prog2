@@ -1,0 +1,42 @@
+{% include "head.html" %}
+
+	<section class="border-bottom"  style="padding-top: 100px">	<!--CSS-->
+		<div class="container">
+			<div class="form-group">
+				<div class="vergangen">
+				  <h5>Vergebener Termin!</h5>
+				  <p>Das von Ihnen gewählte Wunschdatum {{reserviert}} ist bereits vergeben!</p>
+				  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Bereits vergebene Termine</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for termin in reservierungen %}
+                            <tr>
+                              <td>{{termin}}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    <h6>Nächstmöglicher freier Termin: {{alternative}}</h6>
+
+                    <form method="POST" action="#"> <!--Eingaben werden auf Server geladen mit Post-->
+                        <div class="form-group">
+                            <label for="email"> Ihr Wunschtermin eingeben:</label>
+                                <input type="datetime-local" class="form-control" name="field5" min="09:00" max="19:00">
+                        </div>
+                        <div class="col-md-6 offset-md-3 offset-lg-3 offset-xl-3 button">
+                                <a href="{{ url_for('thanks') }}"><button class="btn btn-primary btn-block" type="submit" name="field5" style="margin-top: 20px;">Senden	<!--Senden-Button-->
+                                </button>
+                            </div>
+                 </form>
+
+				<a href="{{ url_for('thanks') }}"><button type="button" class="btn btn-primary">Neuer Versuch</button></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% include "footer.html" %}
