@@ -12,47 +12,48 @@ app.permanent_session_lifetime = timedelta(minutes=2) #Eingegebene Werte in Sess
 
 """Eingabefeld für den Nutzer. Hier kann der Nutzer Daten zur Dienstleistung, Name, Datum, Uhrzeit etc. eingeben.
 Mit der Funktion 'Session' werden die Daten für 2 Min. gespeichert."""
+#app.route definiert den Link in diesem Fall die html-Seite "Home"
 @app.route('/', methods=["POST", "GET"])	
-def home():
+def home():									#Alles was folgt, gehört zur home.html Seite (Definition)
 
-
-    if request.method == "POST":			#Die Post Methode dient dazu, die Daten auf den Server zu laden.
+											#POST-Methode wird angewandt, wenn auf den "senden-button" geklickt wird
+    if request.method == "POST":			#Wenn Post-Methode verwendet wird, wird alles was eingerückt ist ausgeführt. 
         session.permanent = True
         service = request.form["field1"]	#Auswahl Dienstleistung 
         session["service"] = service		#Hier werden die eingegebenen Daten in die Session gespeichert. 
-        if "service" in session:
+        if "service" in session:			#Diese if-Abfragen sind nötig, da der Inhalt ansonsten nur aus Zahlen bestehen würde.
             service = session["service"]
-            if service == "1":
-                service = "Haare"
+            if service == "1":      
+                service = "Haare" 
             elif service == "2":
                 service = "Bart"
             elif service == "3":
-                service = "Haare & Bart"
+                service = "Haare & Bart" 
 
-        if service == "Haare":
-            kosten = int(24)
+        if service == "Haare":				#Hier werden die Kosten für die Leistungen definiert.
+            kosten = int(24)				#Haarschnitt kostet 24
         elif service == "Bart":
-            kosten = int(15)
+            kosten = int(15) 				#Bart kostet 15
         else:
-            kosten = int(32)
+            kosten = int(32) 				#Haare und Bart kostet 32
         session["kosten"] = kosten
 
-        name = request.form["field2"]		#Dasselbe gilt für die weiteren, folgenden Felder.
+        name = request.form["field2"]		#Hier werden die Eingaben des Nutzers in die Session gespeichert (für 2 Min) 
         session["name"] = name
         phone = request.form["field3"]
         session["phone"] = phone
         alter = request.form["field4"]
         session["alter"] = alter
-        return redirect(url_for("termin"))	#Nach der Eingabe wird der Nutzer auf die 'Thanks'-Seite weitergeleitet
+        return redirect(url_for("termin"))	#Nach der Eingabe wird der Nutzer auf die "Termin"-Seite weitergeleitet
 
-    return render_template("home.html")
+    return render_template("home.html")		#Bedeuted, dass mit Eingabe "/" im Browser auf Seite "home" verwiesen wird
 
 @app.route('/termin/', methods=["POST", "GET"])    
 def termin():
 # Daten einlesen
-    with open('reservierungen.json') as open_file:
-        json_als_string = open_file.read()
-        reservierungen = loads(json_als_string)
+    with open('reservierungen.json') as open_file:	#Hier wird das json-File mit den reservierten Daten geöffnet und als open_file benannt
+        json_als_string = open_file.read()			#Das geöffnete json-File wird gelesen und in Variabel json_als_string gespeichert
+        reservierungen = loads(json_als_string)		#Die Daten werden geladen und in Variabel reservierungen gespeichert
 
     if request.method == "POST":            #Die Post Methode dient dazu, die Daten auf den Server zu laden.
         session.permanent = True
@@ -67,19 +68,19 @@ def termin():
 
   
 
-@app.route('/thanks', methods=["POST", "GET"])	#Erstellun der 'Thanks-Seite'
+@app.route('/thanks', methods=["POST", "GET"])	#Erstellung der 'Thanks-Seite'
 def thanks():			#Bildung der Funktion 'Thanks'
     # Daten einlesen json laden
-    with open('reservierungen.json') as open_file:
-        json_als_string = open_file.read()
-        reservierungen = loads(json_als_string)
+    with open('reservierungen.json') as open_file:	#Hier wird das json-File mit den reservierten Daten geöffnet und als open_file benannt
+        json_als_string = open_file.read()			#Das geöffnete json-File wird gelesen und in Variabel json_als_string gespeichert
+        reservierungen = loads(json_als_string)		#Die Daten werden geladen und in Variabel reservierungen gespeichert
 
     if request.method == "POST":            #Die Post Methode dient dazu, die Daten auf den Server zu laden.
         session.permanent = True
         date = request.form["field5"]    #Auswahl Dienstleistung 
         session["date"] = date        #Hier werden die eingegebenen Daten in die Session gespeichert. 
     
-    if "service" in session:
+    if "service" in session:			#Umwandlung Dienstleistungsauswahl von Session in Service 
         service = session["service"]
         if service == "1":
             service = "Haare"
@@ -93,11 +94,11 @@ def thanks():			#Bildung der Funktion 'Thanks'
     alter = session["alter"]
     alter = int(alter)
     if alter < 18:
-        kosten = kosten - 4 #wen unter 18 rabatt von 4 CHF
+        kosten = kosten - 4 #wenn unter 18 rabatt von 4 CHF
     date = session["date"]
     print(date)	#Eingegebenes Datum des Kunden wird aufgerufen
     umwandeln = datetime.strptime( date, "%Y-%m-%dT%H:%M" ) #umwandeln in datetime format
-    
+    #Quelle: https://www.programiz.com/python-programming/datetime/strftime, https://www.programiz.com/python-programming/datetime/strptime
     date_formatiert = umwandeln.strftime("%d.%m.%Y-%H:%M") #umwandeln in ein string
     umwandeln_2 = datetime.strptime( date_formatiert, "%d.%m.%Y-%H:%M") #umwandeln in datetime format
     print(date_formatiert)
@@ -119,7 +120,7 @@ def thanks():			#Bildung der Funktion 'Thanks'
         return render_template("sonntag.html", Reservierung=date_ohne_zeit)
     elif zeit not in zeiten:
         return render_template("zeit.html", zeit=zeit)
-    elif reservierung_existiert_bereits == True:
+    elif reservierung_existiert_bereits == True: #Falls ein Termin bereits vergeben wurde
         nächst_mögl_termin = umwandeln_2 + timedelta(minutes=30) #umwandeln in datetime um zu addieren
         reservierung_existiert_bereits = True
         while reservierung_existiert_bereits == True:

@@ -1,11 +1,13 @@
-{% include "head.html" %}
+{% include "head.html" %} <!--Flask fügt hier den entsprechenden Header ein-->
+
+<!-- Diese Seite wird nur aufgerufen, wenn der gewählte Termin bereits vergeben ist-->
 
 	<section class="border-bottom"  style="padding-top: 100px">	<!--CSS-->
 		<div class="container">
-			<div class="form-group">
+			<div class="form-group">     
 				<div class="vergangen">
-				  <h5>Vergebener Termin!</h5>
-				  <p>Das von Ihnen gewählte Wunschdatum {{reserviert}} ist bereits vergeben!</p>
+				  <h5>Vergebener Termin!</h5>   <!--Überschrift-->
+				  <p>Das von Ihnen gewählte Wunschdatum {{reserviert}} ist bereits vergeben!</p> <!--Die geschwungene Klammer bedeueted, dass dies eine Variabel von Flask ist. In diesem Fall, den eingegebenen Input des Kunden-->
 				  <table class="table">
                       <thead>
                         <tr>
@@ -39,4 +41,4 @@
 		</div>
 	</section>
 
-{% include "footer.html" %}
+{% include "footer.html" %} <!--Flask fügt hier den entsprechenden Footer ein-->
