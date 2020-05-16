@@ -18,37 +18,31 @@ def home():									#Alles was folgt, gehört zur home.html Seite (Definition)
 
 											#POST-Methode wird angewandt, wenn auf den "senden-button" geklickt wird
     if request.method == "POST":			#Wenn Post-Methode verwendet wird, wird alles was eingerückt ist ausgeführt. 
-        session.permanent = True
-        service = request.form["field1"]	#Auswahl Dienstleistung 
+        session.permanent = True            #Damit Session nicht gelöscht wird (permanent = 2min.)
+        service = request.form["field1"]	#Holen der Info aus Input "Dienstleistung"  
         session["service"] = service		#Hier werden die eingegebenen Daten in die Session gespeichert. 
-        if "service" in session:			#Diese if-Abfragen sind nötig, da der Inhalt ansonsten nur aus Zahlen bestehen würde.
-            service = session["service"]
-            if service == "1":      
-                service = "Haare" 
-            elif service == "2":
-                service = "Bart"
-            elif service == "3":
-                service = "Haare & Bart" 
+        #if "service" in session:			#Diese if-Abfrage dient zur prüfung, ob etw. in Session gespeichert ist
+        #Session["service"] in service umgewandelt, wegen kürzerer Benennung
 
         if service == "Haare":				#Hier werden die Kosten für die Leistungen definiert.
             kosten = int(24)				#Haarschnitt kostet 24
         elif service == "Bart":
             kosten = int(15) 				#Bart kostet 15
         else:
-            kosten = int(32) 				#Haare und Bart kostet 32
-        session["kosten"] = kosten
+            kosten = int(32) 				#Haare und Bart kosten 32
+        session["kosten"] = kosten          #Kosten wird in session["kosten"] eingespeichert#
 
-        name = request.form["field2"]		#Hier werden die Eingaben des Nutzers in die Session gespeichert (für 2 Min) 
-        session["name"] = name
-        phone = request.form["field3"]
-        session["phone"] = phone
-        alter = request.form["field4"]
-        session["alter"] = alter
+        name = request.form["field2"]		#Holen der Info aus Input Feld2
+        session["name"] = name              #Hier werden die eingegebenen Daten in die Session gespeichert. 
+        phone = request.form["field3"]      #Holen der Info aus Input Feld3
+        session["phone"] = phone            #Hier werden die eingegebenen Daten in die Session gespeichert. 
+        alter = request.form["field4"]      #Holen der Info aus Input Feld4
+        session["alter"] = alter            #Hier werden die eingegebenen Daten in die Session gespeichert. 
         return redirect(url_for("termin"))	#Nach der Eingabe wird der Nutzer auf die "Termin"-Seite weitergeleitet
 
     return render_template("home.html")		#Bedeuted, dass mit Eingabe "/" im Browser auf Seite "home" verwiesen wird
 
-@app.route('/termin/', methods=["POST", "GET"])    
+@app.route('/termin/', methods=["POST", "GET"])   #Definition Seite "Termin" 
 def termin():
 # Daten einlesen
     with open('reservierungen.json') as open_file:	#Hier wird das json-File mit den reservierten Daten geöffnet und als open_file benannt
@@ -64,13 +58,13 @@ def termin():
     
 
     
-    return render_template("termin.html", reservierungen=reservierungen)
+    return render_template("termin.html", reservierungen=reservierungen)    #Bedeuted, dass mit Eingabe "/termin/ im Browser auf Seite "termin" verwiesen wird. 
 
   
 
 @app.route('/thanks', methods=["POST", "GET"])	#Erstellung der 'Thanks-Seite'
-def thanks():			#Bildung der Funktion 'Thanks'
-    # Daten einlesen json laden
+def thanks():			                        #Bildung der Funktion 'Thanks'
+                                                # Daten einlesen json laden
     with open('reservierungen.json') as open_file:	#Hier wird das json-File mit den reservierten Daten geöffnet und als open_file benannt
         json_als_string = open_file.read()			#Das geöffnete json-File wird gelesen und in Variabel json_als_string gespeichert
         reservierungen = loads(json_als_string)		#Die Daten werden geladen und in Variabel reservierungen gespeichert
@@ -78,31 +72,25 @@ def thanks():			#Bildung der Funktion 'Thanks'
     if request.method == "POST":            #Die Post Methode dient dazu, die Daten auf den Server zu laden.
         session.permanent = True
         date = request.form["field5"]    #Auswahl Dienstleistung 
-        session["date"] = date        #Hier werden die eingegebenen Daten in die Session gespeichert. 
+        session["date"] = date           #Hier werden die eingegebenen Daten in die Session gespeichert. 
     
-    if "service" in session:			#Umwandlung Dienstleistungsauswahl von Session in Service 
-        service = session["service"]
-        if service == "1":
-            service = "Haare"
-        elif service == "2":
-            service = "Bart"
-        elif service == "3":
-            service = "Haare & Bart"
+                            			 
+    service = session["service"]         #Umwandlung Dienstleistungsauswahl von Session in Service 
     name = session["name"]
     phone = session["phone"]
     kosten = session["kosten"]
-    alter = session["alter"]
-    alter = int(alter)
+    alter = session["alter"]            
+    date = session["date"]              
+    alter = int(alter)                  #Eingabe wird als integer umgewandelt
     if alter < 18:
-        kosten = kosten - 4 #wenn unter 18 rabatt von 4 CHF
-    date = session["date"]
-    print(date)	#Eingegebenes Datum des Kunden wird aufgerufen
+        kosten = kosten - 4             #Wenn Kunde unter 18 Jahre alt ist, Rabatt von 4 CHF 
+
+#Der folgende Abschnitt wurde eigenständig von Samir verfasst, bitte um entsprechnde Rücksichtnahme bei der Befragung 
     umwandeln = datetime.strptime( date, "%Y-%m-%dT%H:%M" ) #umwandeln in datetime format
     #Quelle: https://www.programiz.com/python-programming/datetime/strftime, https://www.programiz.com/python-programming/datetime/strptime
     date_formatiert = umwandeln.strftime("%d.%m.%Y-%H:%M") #umwandeln in ein string
     umwandeln_2 = datetime.strptime( date_formatiert, "%d.%m.%Y-%H:%M") #umwandeln in datetime format
-    print(date_formatiert)
-    reservierung_existiert_bereits = False
+    reservierung_existiert_bereits = False 
     for reservierung in reservierungen:
         if reservierung == date_formatiert:
             reservierung_existiert_bereits = True
@@ -114,10 +102,10 @@ def thanks():			#Bildung der Funktion 'Thanks'
     today = datetime.today()
     now = today.strftime("%Y-%m-%dT%H:%M")
 
-    if date < now:
-        return render_template("vergangen.html", Reservierung=date_ohne_zeit)
-    elif wochentag == "Sunday":
-        return render_template("sonntag.html", Reservierung=date_ohne_zeit)
+    if date < now:  #Falls das eingegebene Datum kleiner als das heutige ist, soll das Folgende passieren
+        return render_template("vergangen.html", Reservierung=date_ohne_zeit)   #vergangen.html wird aufgerufen
+    elif wochentag == "Sunday":     #englischer Begriff, da PY-Kalender auf englisch ist
+        return render_template("sonntag.html", Reservierung=date_ohne_zeit) #diese wird gerendert, wenn Tag auf Sonntag fällt.
     elif zeit not in zeiten:
         return render_template("zeit.html", zeit=zeit)
     elif reservierung_existiert_bereits == True: #Falls ein Termin bereits vergeben wurde

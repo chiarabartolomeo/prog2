@@ -14,29 +14,29 @@
                 </div>
                 <form method="POST" action="#"> <!--Eingaben werden auf Server geladen mit Post-->
 
-                    <h3>Termin wählen</h3>
+                    <h3>Termin wählen</h3>  <!--Überschrift-->
 
                     
 
 
-                    <h5>Öffnungszeiten:</h5>
-                    <p>Mo-Sa von 09:00-19:00 Uhr</p>
+                    <h5>Öffnungszeiten:</h5>  <!--Überschrift-->
+                    <p>Mo-Sa von 09:00-19:00 Uhr</p> <!--Text-->
                     <p></p>
-                    <h5>Reservierungszeiten:</h5>
-                    <p>Mo-Sa von 09:00 bis 18:30 Uhr im Halbstundentakt</p>
+                    <h5>Reservierungszeiten:</h5> <!--Überschrift-->
+                    <p>Mo-Sa von 09:00 bis 18:30 Uhr im <strong>Halbstundentakt</strong></p> <!--Text-->
                     
                     
 
                         <div class="form-group">
-                                <label for="email"> Ihr Wunschtermin eingeben:</label>
+                                <label for="email"> Ihr Wunschtermin eingeben:</label> <!--Übertitel Input-Feld-->
                                     <input type="datetime-local" class="form-control" name="field5"
-                                    min="09:00" max="19:00">
+                                    min="09:00" max="19:00">    <!--Input-Feld-->
 
                         </div>
 
 
 
-                            <div class="col-md-6 offset-md-3 offset-lg-3 offset-xl-3 button">
+                            <div class="col-md-6 offset-md-3 offset-lg-3 offset-xl-3 button"> <!--CSS-->
                                 <button class="btn btn-primary btn-block" type="submit" name="submit" style="margin-top: 20px;">Senden	<!--Senden-Button-->
                                 </button>
                             </div>
@@ -44,22 +44,22 @@
                     </div>
                     <br>
 
-                    <div class="container">
+                    <div class="container">   <!--CSS-->
                       
-                      <button type="button" class="btn btn-secondary btn-sm btn-block" data-toggle="collapse" data-target="#demo">Hier bereits vergebene Termine einsehen!</button>
-                      <div id="demo" class="collapse">
-                        <table class="table">
+                      <button type="button" class="btn btn-secondary btn-sm btn-block" data-toggle="collapse" data-target="#demo">Hier bereits vergebene Termine einsehen!</button> <!--Button-->
+                      <div id="demo" class="collapse">  <!--CSS (Zusammenziehen bei Klick)-->
+                        <table class="table"> <!--CSS (Tabelle)-->
                                       <thead>
                                         <tr>
-                                          <th scope="col" style="text-align: center;">Vergebene Termine:</th>
+                                          <th scope="col" style="text-align: center;">Vergebene Termine:</th> <!--Überschrift -->
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {% for termin in reservierungen %}
+                                        {% for termin in reservierungen %}    <!--For-Schleife, damit alle Termine in Zeile 60 aufgelistet werden-->
                                             <tr>
-                                              <td style="text-align: center;">{{termin}}</td>
+                                              <td style="text-align: center;">{{termin}}</td> <!--Auflistung aller Termine von json-Datei-->
                                             </tr>
-                                        {% endfor %}
+                                        {% endfor %} <!--Ende der Schleife-->
                                       </tbody>
                                     </table>
                       </div>
